@@ -15,7 +15,14 @@
         <script>
             var canvas = document.getElementById("myCanvas"); // Grab the canvas element
             var ctx = canvas.getContext("2d"); // The 2D renndering context is the actual tool for painting on the canvas
+            function draw() {
+                ctx.beginPath();
+                ctx.arc(50, 50, 10, 0, Math.PI*2);
+                ctx.fillStyle = "#0095DD";
+                ctx.fill();
+                ctx.closePath();
             }
+            setInterval(draw, 10); // execute the draw function every 10 ms forever
         </script>
 
     </body>
