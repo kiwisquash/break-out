@@ -15,29 +15,6 @@
         <script>
             var canvas = document.getElementById("myCanvas"); // Grab the canvas element
             var ctx = canvas.getContext("2d"); // The 2D renndering context is the actual tool for painting on the canvas
-            for (var i = 1; i < 10; i++) {
-                ctx.beginPath();
-                ctx.rect(20*i,40 + i,50/i,50);
-                ctx.fillStyle = "#FF0000";
-                ctx.fill();
-                ctx.closePath();
-            } 
-
-
-            for (var i = 1; i < 10; i++) {
-                ctx.beginPath();
-                ctx.arc(240 + 10*i, 160 - 5*i, 20/i, 0, Math.PI*2, false);
-                ctx.fillStyle = "green";
-                ctx.fill();
-                ctx.closePath();
-            }
-
-            for (var i = 1; i < 100; i++) {
-                ctx.beginPath();
-                ctx.rect(160, 10, 100/i, 40);
-                ctx.strokeStyle = "rgba(0,0,255,.5)"; // Blue semi-transparent 
-                ctx.stroke();
-                ctx.closePath();
             }
         </script>
 
