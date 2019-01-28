@@ -19,11 +19,13 @@
             var y = canvas.height/4;
             var dx = -1;
             var dy = 2;
-           
+            var ballRadius = 10;
+            var ballColor = "#0095DD";
+
             function drawBall() {
                 ctx.beginPath();
-                ctx.arc(x, y, 10, 0, Math.PI*2);
-                ctx.fillStyle = "#0095DD";
+                ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+                ctx.fillStyle = ballColor;
                 ctx.fill();
                 ctx.closePath();
             }
@@ -31,11 +33,17 @@
             function draw() {
                 ctx.clearRect(0,0,canvas.width, canvas.height);
                 drawBall()
+                if (y + dy < ballRadius || y + ballRadius + dy > canvas.height) {
+                    dy = -dy;
+                }
+                if (x + dx < ballRadius || x + ballRadius + dx > canvas.width) {
+                    dx = -dx;
+                }
                 x += dx;
                 y += dy;
             }
 
-            setInterval(draw, 30); // execute the draw function every 10 ms forever
+            setInterval(draw, 15); // execute the draw function every 10 ms forever
         </script>
 
     </body>
