@@ -91,7 +91,7 @@
                     dx = -dx;
                 }
 
-                if ( x + dx - paddleX >  0 && x + dx - paddleX < paddleWidth && y + dy + ballRadius > canvas.height - paddleHeight) { 
+                if ( x + ballRadius >  paddleX && x - ballRadius < paddleX + paddleWidth && y + ballRadius > canvas.height - paddleHeight) { 
                     dy = -dy;
                 }
 
