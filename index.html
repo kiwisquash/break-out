@@ -79,9 +79,14 @@
                     paddleX += 7;
                 }
 
+                if ( x + ballRadius >  paddleX && x - ballRadius < paddleX + paddleWidth && y + ballRadius > canvas.height - paddleHeight) { 
+                    dy = -1.5*dy;
+                    dx = 1.5*dx;
+                }
+
                 if (y + dy < ballRadius) {
                     dy = -dy;
-                } else if (y + dy > canvas.height - ballRadius) {
+                } else if (y > canvas.height - ballRadius) {
                     alert("Game over");
                     document.location.reload();
                     clearInterval(interval);
@@ -91,9 +96,6 @@
                     dx = -dx;
                 }
 
-                if ( x + ballRadius >  paddleX && x - ballRadius < paddleX + paddleWidth && y + ballRadius > canvas.height - paddleHeight) { 
-                    dy = -dy;
-                }
 
                 x += dx;
                 y += dy;
