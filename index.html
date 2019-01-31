@@ -60,7 +60,7 @@
             
             function drawPaddle() {
                 ctx.beginPath();
-                ctx.rect(paddleX, canvas.height - 2*paddleHeight, paddleWidth, paddleHeight);
+                ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
                 ctx.fillStyle = "#0095DD";
                 ctx.fill();
                 ctx.closePath();
@@ -79,18 +79,27 @@
                     paddleX += 7;
                 }
 
-                if (y + dy < ballRadius || y + ballRadius + dy > canvas.height) {
+                if (y + dy < ballRadius) {
                     dy = -dy;
-                }
+                } else if (y + dy > canvas.height - ballRadius) {
+                    alert("Game over");
+                    document.location.reload();
+                    clearInterval(interval);
+                } 
+
                 if (x + dx < ballRadius || x + ballRadius + dx > canvas.width) {
                     dx = -dx;
+                }
+
+                if ( x + dx - paddleX >  0 && x + dx - paddleX < paddleWidth && y + dy + ballRadius > canvas.height - paddleHeight) { 
+                    dy = -dy;
                 }
 
                 x += dx;
                 y += dy;
             }
 
-            setInterval(draw, 15); // execute the draw function every 10 ms forever
+            var interval = setInterval(draw, 15); // execute the draw function every 10 ms forever
         </script>
 
     </body>
