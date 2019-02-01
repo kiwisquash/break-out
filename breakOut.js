@@ -115,12 +115,9 @@ function collisonDetection () {
             var b = bricks[col][row];
             if (b.hit == 0) {
                 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
-                    dy = -dy ;
+                    // dy = -dy; // Feels more satisfying to not let the ball bounce.
                     b.hit = 1;
                     score++;
-                    if (score == max_score) {
-                        endGame("Congrats! You won!\n Your total score was " + score);
-                    }
                 }
             }
         }
@@ -144,9 +141,12 @@ function draw() {
     drawBricks();
     drawBall();
     drawPaddle();
-    collisonDetection();
     drawScore();
     drawLives();
+    if (score == max_score) {
+        endGame("Congrats! You won!\n Your total score was " + score);
+    }
+    collisonDetection();
 
     if (leftPressed && paddleX > 0) {
         paddleX -= 7;
@@ -157,8 +157,12 @@ function draw() {
     }
 
     if ( x + ballRadius >  paddleX && x - ballRadius < paddleX + paddleWidth && y + ballRadius > canvas.height - paddleHeight) { 
-        dy = -1.5*dy;
-        dx = 1.5*dx;
+        if (dy*dy + dx*dx < 10) {
+            dy = -1.1*dy;
+            dx = 1.1*dx;
+        } else {
+            dy = -dy;
+        }
     }
 
     if (y + dy < ballRadius) {
