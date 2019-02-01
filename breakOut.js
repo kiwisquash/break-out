@@ -40,6 +40,15 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
+// Game Ending conditions
+var lives = 3;
+var max_score = brickRowCount * brickColumnCount;
+
+function endGame(m) {
+    alert(m);
+    document.location.reload();
+}
+
 function mouseMoveHandler(e) {
     var relX = e.clientX - canvas.offsetLeft;
     if (relX > 0 && relX < canvas.width) {
@@ -136,8 +145,7 @@ function draw() {
     if (y + dy < ballRadius) {
         dy = -dy;
     } else if (y > canvas.height - ballRadius) {
-        alert("Game over");
-        document.location.reload();
+        endGame("Game over");
     } 
 
     if (x + dx < ballRadius || x + ballRadius + dx > canvas.width) {
