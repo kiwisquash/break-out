@@ -41,7 +41,8 @@ document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
 // Game Ending conditions
-var lives = 3;
+var lives = 10;
+var score = 0;
 var max_score = brickRowCount * brickColumnCount;
 
 function endGame(m) {
@@ -116,10 +117,26 @@ function collisonDetection () {
                 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
                     dy = -dy ;
                     b.hit = 1;
+                    score++;
+                    if (score == max_score) {
+                        endGame("Congrats! You won!\n Your total score was " + score);
+                    }
                 }
             }
         }
     }
+}
+
+function drawScore() {
+    ctx.font = "16 px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Score: "+score,8,20);
+}
+
+function drawLives() {
+    ctx.font = "16 px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Lives: "+lives,8,40);
 }
 
 function draw() {
@@ -128,6 +145,8 @@ function draw() {
     drawBall();
     drawPaddle();
     collisonDetection();
+    drawScore();
+    drawLives();
 
     if (leftPressed && paddleX > 0) {
         paddleX -= 7;
@@ -145,7 +164,15 @@ function draw() {
     if (y + dy < ballRadius) {
         dy = -dy;
     } else if (y > canvas.height - ballRadius) {
-        endGame("Game over");
+        lives--;
+        if (!lives){
+            endGame("You ran out of lives!");
+        } else {
+            x = canvas.width / 2;
+            y = canvas.height / 2;
+            dx = 1;
+            dy = 2;
+        }
     } 
 
     if (x + dx < ballRadius || x + ballRadius + dx > canvas.width) {
@@ -154,6 +181,7 @@ function draw() {
 
     x += dx;
     y += dy;
+    
     requestAnimationFrame(draw);
 }
 
