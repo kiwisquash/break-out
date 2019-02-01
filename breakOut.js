@@ -1,7 +1,8 @@
-/*Canvas*/
+// Canvas data
 var canvas = document.getElementById("myCanvas"); // Grab the canvas element
 var ctx = canvas.getContext("2d"); // The 2D renndering context is the actual tool for painting on the canvas
-/*Ball data*/
+
+// Ball data
 var x = canvas.width/2;
 var y = canvas.height/4;
 var dx = -1;
@@ -9,7 +10,7 @@ var dy = 2;
 var ballRadius = 10;
 var ballColor = "#0095DD";
 
-/*Brick data*/
+// Brick data
 var brickRowCount = 3;
 var brickColumnCount = 5;
 var brickWidth = 75;
@@ -26,16 +27,25 @@ for (var c = 0; c < brickColumnCount; c++) {
     }
 }
 
-/*Paddle*/
+// Paddle
 var paddleWidth = 75;
 var paddleHeight = 10;
 var paddleX = (canvas.width - paddleWidth)/2;
 
+// Variables for keeping track of the state of the left and right buttons
 var leftPressed = false;
 var rightPressed = false;
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("mousemove", mouseMoveHandler, false);
+
+function mouseMoveHandler(e) {
+    var relX = e.clientX - canvas.offsetLeft;
+    if (relX > 0 && relX < canvas.width) {
+        paddleX = relX - paddleWidth / 2;
+    }
+}
 
 function keyDownHandler(e) {
     if (e.key == "Right" || e.key == "ArrowRight") {
